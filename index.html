@@ -1,78 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./assests/css/style.css">
+        <title>Document</title>
+        <!-- Tailwind CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assests/css/style.css">
-    <title>Document</title>
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+    <body class="w-full h-screen">
+        <header class="p-4 bg-gray-200 font-bold">
+            <h1 class="text-3xl font-bold ">WorkSpace</h1>
+        </header>
+        <main class="w-full h-[90%] flex">
+            <!-- sidebar -->
+            <aside class="sidebar w-[25%] h-full bg-red-500 p-4 flex flex-col">
+                <h1
+                    class="text-xl font-bold mb-6 text-gray-800 text-center border-2 border-gray-800 pb-2">Unasigned
+                    Staff</h1>
+                <div id="unassignedList" class="flex-1">
+                    <!-- list of Worker -->
+                </div>
+                <!-- add worker btn  -->
+                <div class="mt-4 ">
+                    <button id="addWorkerBtn"
+                        class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-full">Add
+                        Woker</button>
+                </div>
 
-<body class="w-full h-screen">
-    <header class="p-4 bg-gray-200 font-bold">
-        <h1>WorkSphere</h1>
-    </header>
-    <main class="w-full h-[90%] flex">
-        <!-- sidebar -->
-        <aside class="sidebar w-[25%] h-full bg-red-500 p-4">
-            <h1>Unasigned Stuff</h1>
-            <div id="unassignedList" class="space-2-">
-                <!-- list of Worker -->
-            </div>
-            <div class="mt-4 bg-green-500">
-                <button id="addWorkerBtn">Add Worker</button>
-            </div>
-        </aside>
-        <section class="floor-plan rooms-grid w-[75%] h-full  ">
-            <!-- salle -->
-            <div class="zone bg-blue-500 bg-opacity-50 conference-room " id="conference-room">
-                <h3>salle de conference</h3>
-                <button class="add-btn">+</button>
-                <div class="zone-content"></div>
-            </div>
+            </aside>
+            <section class="floor-plan rooms-grid w-[75%] h-full  ">
+                <!-- salle -->
+                <div class="zone bg-blue-500 bg-opacity-50 conference-room "
+                    id="conference-room">
+                    <h3>salle de conference</h3>
+                    <button class="add-btn">+</button>
+                    <div class="zone-content"></div>
+                </div>
 
-            <div class="zone bg-orange-500 bg-opacity-50 reception-room" id="reception">
-                <h3>reception</h3>
-                <button class="add-btn">+</button>
-                <div class="zone-content"></div>
-            </div>
+                <div class="zone bg-orange-500 bg-opacity-50 reception-room"
+                    id="reception">
+                    <h3>reception</h3>
+                    <button class="add-btn">+</button>
+                    <div class="zone-content"></div>
+                </div>
 
-            <div class="zone bg-pink-500 bg-opacity-50 server-room" id="server-room">
-                <h3>salle des serveurs</h3>
-                <button class="add-btn">+</button>
-                <div class="zone-content"></div>
-            </div>
+                <div class="zone bg-pink-500 bg-opacity-50 server-room"
+                    id="server-room">
+                    <h3>salle des serveurs</h3>
+                    <button class="add-btn">+</button>
+                    <div class="zone-content"></div>
+                </div>
 
-            <div class="zone bg-purple-500 bg-opacity-50 security-room" id="security-room">
-                <h3>salle de security</h3>
-                <button class="add-btn">+</button>
-                <div class="zone-content"></div>
-            </div>
+                <div class="zone bg-purple-500 bg-opacity-50 security-room"
+                    id="security-room">
+                    <h3>salle de security</h3>
+                    <button class="add-btn">+</button>
+                    <div class="zone-content"></div>
+                </div>
 
-            <div class="zone bg-cyan-500 bg-opacity-50 staff-room" id="staff-room">
-                <h3>salle du personnel</h3>
-                <button class="add-btn">+</button>
-                <div class="zone-content"></div>
-            </div>
+                <div class="zone bg-cyan-500 bg-opacity-50 staff-room"
+                    id="staff-room">
+                    <h3>salle du personnel</h3>
+                    <button class="add-btn">+</button>
+                    <div class="zone-content"></div>
+                </div>
 
-            <div class="zone bg-yellow-500 bg-opacity-50 archives-room" id="archives-room">
-                <h3>salle de archives</h3>
-                <button class="add-btn">+</button>
-                <div class="zone-content"></div>
-            </div>
-            <div class="zone bg-gray-500 bg-opacity-50 empty-room">
-                hhhh
-            </div>
-            <div class="zone bg-gray-500 bg-opacity-50 emptx-room">
-                hohohoho
-            </div>
+                <div class="zone bg-yellow-500 bg-opacity-50 archives-room"
+                    id="archives-room">
+                    <h3>salle de archives</h3>
+                    <button class="add-btn">+</button>
+                    <div class="zone-content"></div>
+                </div>
+                <div class="zone bg-gray-500 bg-opacity-50 empty-room">
+                    hhhh
+                </div>
+                <div class="zone bg-gray-500 bg-opacity-50 emptx-room">
+                    hohohoho
+                </div>
+                
 
-        </section>
+            </section>
 
-    </main>
-    <script src="./assests/js/app.js"></script>
-</body>
+        </main>
+        <!-- add worker popup -->
+                <div id="addworkerpopup"
+                    class="hidden fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50"> 
+                    <div class="bg-white  p-6 rounded shadow-lg relative">
+                        <!-- close button -->
+                        <button id="closepopup"
+                            class="absolute top-2 right-2 text-gray-500  text-xl font-bold">X</button>
+
+                        <h2 class="text-lg font-bold mb-4 text-center">Add
+                            Worker</h2>
+
+                        <!-- worker Name -->
+                        <input type="text" placeholder="Worker Name"
+                            class="w-full mb-3 px-3 py-2 border border-gray-300 rounded">
+
+                        <!-- worker Role -->
+                        <input type="text" placeholder="Worker Role"
+                            class="w-full mb-3 px-3 py-2 border border-gray-300 rounded">
+
+                        <!-- submit button -->
+                        <button id="submitworker"
+                            class="w-full bg-blue-500 text-white py-2 rounded ">Add</button>
+                    </div>
+                </div>
+        <script src="./assests/js/app.js"></script>
+    </body>
 
 </html>

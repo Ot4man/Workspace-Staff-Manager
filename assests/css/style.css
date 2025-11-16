@@ -1,7 +1,7 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 .floor-plan{
     background-image: url(../images/image.png);
@@ -11,12 +11,11 @@
     
 }
 .rooms-grid{
-  display: grid;
-  grid-template-columns: 1/5fr  1fr 1fr 1fr ;
-  grid-template-rows: 275px 275px 275px;
-  grid-template-areas:    "conference conference empty server security""reception reception empty emptx emptx"
-       "reception reception empty staff archives"
-      ; 
+    display: grid;
+    grid-template-columns: 1/5fr  1fr 1fr 1fr ;
+    grid-template-rows: 275px 275px 275px;
+    grid-template-areas:    "conference conference empty server security""reception reception empty emptx emptx"
+        "reception reception empty staff archives"; 
 
 }
 
