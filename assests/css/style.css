@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.floor-plan{
+    background-image: url(../images/image.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+.rooms-grid{
+  display: grid;
+  grid-template-columns: 1/5fr  1fr 1fr 1fr ;
+  grid-template-rows: 275px 275px 275px;
+  grid-template-areas:    "conference conference empty server security""reception reception empty emptx emptx"
+       "reception reception empty staff archives"
+      ; 
+
+}
+
+.conference-room { grid-area: conference; }
+.reception-room { grid-area: reception; }
+.server-room     { grid-area: server; }
+.security-room   { grid-area: security; }
+.staff-room      { grid-area: staff; }
+.archives-room   { grid-area: archives; }
+.empty-room      {grid-area: empty;}
+.emptx-room      {grid-area: emptx;}
+
+
+.empty-room{
+padding: 13px;
+}
+.conference-room {
+    padding: 13px;
+}
+.server-room {
+    padding: 13px;
+    
+}
+.reception-room {
+    padding: 13px;
+}
+.security-room {
+    padding: 13px;
+}
+.archives-room {
+    padding: 13px;
+}
+.staff-room {
+    padding: 13px;
+}

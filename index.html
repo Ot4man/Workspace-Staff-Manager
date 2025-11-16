@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assests/css/style.css">
+    <title>Document</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="w-full h-screen">
+    <header class="p-4 bg-gray-200 font-bold">
+        <h1>WorkSphere</h1>
+    </header>
+    <main class="w-full h-[90%] flex">
+        <!-- sidebar -->
+        <aside class="sidebar w-[25%] h-full bg-red-500 p-4">
+            <h1>Unasigned Stuff</h1>
+            <div id="unassignedList" class="space-2-">
+                <!-- list of Worker -->
+            </div>
+            <div class="mt-4 bg-green-500">
+                <button id="addWorkerBtn">Add Worker</button>
+            </div>
+        </aside>
+        <section class="floor-plan rooms-grid w-[75%] h-full  ">
+            <!-- salle -->
+            <div class="zone bg-blue-500 bg-opacity-50 conference-room " id="conference-room">
+                <h3>salle de conference</h3>
+                <button class="add-btn">+</button>
+                <div class="zone-content"></div>
+            </div>
+
+            <div class="zone bg-orange-500 bg-opacity-50 reception-room" id="reception">
+                <h3>reception</h3>
+                <button class="add-btn">+</button>
+                <div class="zone-content"></div>
+            </div>
+
+            <div class="zone bg-pink-500 bg-opacity-50 server-room" id="server-room">
+                <h3>salle des serveurs</h3>
+                <button class="add-btn">+</button>
+                <div class="zone-content"></div>
+            </div>
+
+            <div class="zone bg-purple-500 bg-opacity-50 security-room" id="security-room">
+                <h3>salle de security</h3>
+                <button class="add-btn">+</button>
+                <div class="zone-content"></div>
+            </div>
+
+            <div class="zone bg-cyan-500 bg-opacity-50 staff-room" id="staff-room">
+                <h3>salle du personnel</h3>
+                <button class="add-btn">+</button>
+                <div class="zone-content"></div>
+            </div>
+
+            <div class="zone bg-yellow-500 bg-opacity-50 archives-room" id="archives-room">
+                <h3>salle de archives</h3>
+                <button class="add-btn">+</button>
+                <div class="zone-content"></div>
+            </div>
+            <div class="zone bg-gray-500 bg-opacity-50 empty-room">
+                hhhh
+            </div>
+            <div class="zone bg-gray-500 bg-opacity-50 emptx-room">
+                hohohoho
+            </div>
+
+        </section>
+
+    </main>
+    <script src="./assests/js/app.js"></script>
+</body>
+
+</html>
