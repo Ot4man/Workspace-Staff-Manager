@@ -1,41 +1,339 @@
-const addworkerpopup =document.getElementById("addworkerpopup");
-const closepopup =document.getElementById("closepopup");
-const submitworker =document.getElementById("submitworker");
-const addWorkerBtn =document.getElementById("addWorkerBtn");
-/////////////
+
+//DOM elemenets
+const submit = document.getElementById("form");
+
+// Popup
+const addworkerpopup = document.getElementById("addworkerpopup");
+const closepopup = document.getElementById("closepopup");
+const addWorkerBtn = document.getElementById("addWorkerBtn");
+const cancelworker = document.getElementById("cancelworker");
+
+// Worker inputs
 const inputurl = document.getElementById("urlimage");
 const txtpreview = document.getElementById("txtpreview");
 const imagepreview = document.getElementById("image");
+const nameworker = document.getElementById("name");
+const workerrole = document.getElementById("workerrole");
 
-///////////////////
-// popup buttons : add worker ,close 
-addWorkerBtn.addEventListener("click",() => {
+// Experience inputs
+const companyNameExp = document.getElementById("companyNameExp");
+const roleExp = document.getElementById("roleExp");
+const startDateExp = document.getElementById("startDateExp");
+const endDateExp = document.getElementById("endDateExp");
+
+// Email & phone
+const email = document.getElementById("email");
+const phone = document.getElementById("phone");
+
+// List in side bar
+const unassignedList = document.getElementById("unassignedList");
+
+// Experience add btn
+const addExperienceBtn = document.getElementById("addExperienceBtn");
+
+// Profile poppup
+const workerProfile = document.getElementById("workerProfile");
+const profileContent = document.getElementById("profileContent");
+
+//////////////
+// popup events
+addWorkerBtn.addEventListener("click", () => {
     addworkerpopup.classList.remove("hidden");
 });
-closepopup.addEventListener("click",() => {
+
+closepopup.addEventListener("click", () => {
     addworkerpopup.classList.add("hidden");
 });
+
+cancelworker.addEventListener("click", (e) => {
+    e.preventDefault();
+    addworkerpopup.classList.add("hidden");
+});
+
 addworkerpopup.addEventListener("click", (e) => {
-    if(e.target === addworkerpopup){
+    if (e.target === addworkerpopup) {
         addworkerpopup.classList.add("hidden");
     }
 });
-//showing image function
-inputurl.addEventListener("input",showimage);
-function showimage(){
-    let url = inputurl.value;
-    if(url !== ""){
+
+//////////////
+// show image
+inputurl.addEventListener("input", showimage);
+
+function showimage() {
+    let url = inputurl.value.trim();
+    if (url !== "") {
         imagepreview.src = url;
         imagepreview.classList.remove("hidden");
-        txtpreview.classList.add("hidden")
-    }else{
+        txtpreview.classList.add("hidden");
+    } else {
         imagepreview.classList.add("hidden");
         txtpreview.classList.remove("hidden");
     }
 }
 
+//////////////
+// validation regex
+const validationRules = {
+    "name": {
+        regex: /^[A-Za-z\s]{2,50}$/,
+        message: "Invalid name (only letters, 2-50 characters)."
+    },
+    "urlimage": {
+        regex: /^(https?:\/\/.*\.(jpg|jpeg|png|gif|webp))$/i,
+        message: "Invalid image URL (jpg, png, gif, webp)."
+    }
+};
+
+function toggleError(field, show, message = "") {
+    const errorDisplay = document.getElementById(`${field}-error`);
+    const inputField = document.getElementById(field);
+    if (!errorDisplay || !inputField) return;
+
+    if (show) {
+        errorDisplay.textContent = message;
+        errorDisplay.classList.remove("hidden");
+        inputField.classList.add("border-red-500");
+    } else {
+        errorDisplay.classList.add("hidden");
+        inputField.classList.remove("border-red-500");
+        inputField.classList.add("border-green-500");
+    }
+}
+
+function validateField(field, value) {
+    const rule = validationRules[field];
+    if (rule && !rule.regex.test(value)) {
+        toggleError(field, true, rule.message);
+        return false;
+    } else if (rule) {
+        toggleError(field, false);
+        return true;
+    }
+    return true;
+}
+
+function validateForm() {
+    let isValid = true;
+    for (const field in validationRules) {
+        const inputField = document.getElementById(field);
+        if (inputField && !validateField(field, inputField.value.trim())) {
+            isValid = false;
+        }
+    }
+    return isValid;
+}
+
+//////////////
+// local storage
+let workers;
+const strdata = localStorage.getItem("workers");
+if (strdata) {
+    workers = JSON.parse(strdata);
+} else {
+    workers = [];
+}
+
+function saveWorkers() {
+    localStorage.setItem("workers", JSON.stringify(workers));
+}
+
+//////////////
+// Add workers
+submit.addEventListener("submit", addworker);
+//if()
+function addworker(e) {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const worker = {
+        id: Date.now(),
+        name: nameworker.value.trim(),
+        role: workerrole.value.trim(),
+        email: email.value.trim(),
+        phone: phone.value.trim(),
+        image: imagepreview.src,
+        experiences: getexperiences(),
+        zoneId: null 
+    };
 
 
+
+
+    workers.push(worker);
+    saveWorkers();
+    renderWorker(worker);
+    addworkerpopup.classList.add("hidden");
+
+    // Clear form after submit
+    submit.reset();
+    imagepreview.classList.add("hidden");
+    txtpreview.classList.remove("hidden");
+
+}
+
+//////////////
+// rend profile pop
+function renderWorker(worker) {
+    const unassigneddiv = document.createElement("div");
+    unassigneddiv.className = "unassigneddiv cursor-pointer flex justify-between items-center bg-green-500 border border-gray-200 p-3 rounded-lg";
+
+    // store all data in dataset
+    unassigneddiv.dataset.id = worker.id;
+    unassigneddiv.dataset.name = worker.name;
+    unassigneddiv.dataset.role = worker.role;
+    unassigneddiv.dataset.email = worker.email;
+    unassigneddiv.dataset.phone = worker.phone;
+    unassigneddiv.dataset.image = worker.image;
+    unassigneddiv.dataset.experiences = JSON.stringify(worker.experiences);
+
+    unassigneddiv.innerHTML = `
+        <div class="flex items-center gap-4">
+            <img src="${worker.image}" class="w-20 h-20 rounded-full object-cover border border-gray-300">
+            <div>
+                <p class="text-xl font-bold"> Name: ${worker.name}</p>
+                <p class="text-sm"> Role: ${worker.role}</p>
+                <p class="text-sm"> Company: ${worker.company}</p>
+            </div>
+        </div>
+        <button class="text-red-700 font-bold text-xl deleteBtn">X</button>
+    `;
+
+    // Delete worker
+    unassigneddiv.querySelector(".deleteBtn").addEventListener("click", () => {
+        deleteWorker(worker.id);
+        unassigneddiv.remove();
+    });
+
+    // Show profile
+    unassigneddiv.addEventListener("click", (e) => {
+        if (!e.target.classList.contains("deleteBtn")) {
+            showProfile(unassigneddiv);
+        }
+    });
+
+    unassignedList.appendChild(unassigneddiv);
+}
+
+function deleteWorker(id) {
+    workers = workers.filter(wor => wor.id !== id);
+    saveWorkers();
+}
+
+//////////////
+// Load datta
+window.addEventListener("DOMContentLoaded", () => {
+    workers.forEach(renderWorker);
+});
+
+//////////////
+// show profile
+function showProfile(card) {
+    let experienceshtml = "";
+    let expers = card.dataset.experiences;
+    if (expers) {
+        expers = JSON.parse(expers);
+    } else {
+        expers = [];
+    }
+
+    expers.forEach(exp => {
+        experienceshtml += `
+            <div class="bg-gray-100 p-4 rounded-lg space-y-2">
+                <p><strong>Company:</strong> ${exp.company}</p>
+                <p><strong>Role:</strong> ${exp.role}</p>
+                <p><strong>Period:</strong> ${exp.from} - ${exp.to}</p>
+            </div>
+        `;
+    });
+    //injection of html 
+    profileContent.innerHTML = `
+        <h2 class="text-3xl font-bold text-center mb-6">Profile</h2>
+        <div class="flex gap-6 items-center">
+            <img src="${card.dataset.image}" class="w-32 h-32 rounded-full object-cover border shadow">
+            <div>
+                <p class="text-2xl font-bold">${card.dataset.name}</p>
+                <p class="text-gray-700 text-lg">${card.dataset.role}</p>
+            </div>
+        </div>
+
+        <div class="bg-gray-100 p-4 rounded-lg space-y-2">
+            <p><strong>Email:</strong> ${card.dataset.email}</p>
+            <p><strong>Phone:</strong> ${card.dataset.phone}</p>
+        </div>
+
+        <h3 class="text-2xl font-bold mt-6">Work Experience :</h3>
+        ${experienceshtml}
+
+        <button class="text-red-700 font-bold text-xl editbtn">Edit</button>
+    `;
+
+    workerProfile.classList.remove("hidden");
+}
+
+
+// Close profile
+document.getElementById("closeProfile").addEventListener("click", () => {
+    workerProfile.classList.add("hidden");
+});
+
+//////////////
+// Add experiences
+addExperienceBtn.addEventListener("click", addExperienceBlock);
+
+function addExperienceBlock() {
+    const ExperienceList = document.getElementById("ExperienceList");
+
+    const ExperienceBlock = document.createElement("div");
+    ExperienceBlock.className = "experience-blocks p-4 bg-blue-300 rounded mb-3";
+
+    ExperienceBlock.innerHTML = `
+    <div>
+        <label>Company</label>
+        <input type="text" class="companyNameExp border rounded p-2 w-full mb-2">
+
+        <label>Role</label>
+        <input type="text" class="roleExp border rounded p-2 w-full mb-2">
+
+        <label>From</label>
+        <input type="date" class="startDateExp border rounded p-2 w-full mb-2">
+
+        <label>To</label>
+        <input type="date" class="endDateExp border rounded p-2 w-full mb-2">
+
+        <button class="deleteExp mt-2 bg-red-500 px-3 py-1 rounded text-white">Delete</button>
+    </div>
+`;
+
+    ExperienceList.appendChild(ExperienceBlock);
+
+    ExperienceBlock.querySelector(".deleteExp").addEventListener("click", () => {
+        ExperienceBlock.remove();
+    });
+}
+//function get all experiences 
+
+function getexperiences() {
+    const experienceblocks = document.querySelectorAll("#ExperienceList .experience-blocks");
+    const experiences = [];
+    experienceblocks.forEach(block => {
+        const company = block.querySelector(".companyNameExp").value.trim();
+        const role = block.querySelector(".roleExp").value.trim();
+        const from = block.querySelector(".startDateExp").value.trim();
+        const to = block.querySelector(".endDateExp").value.trim();
+        experiences.push({ company, role, from, to });
+    });
+    return experiences;
+}
+/////////zone functiions 
+const zoneRules = {
+    "reception": ["receptionest", "manager"],
+    "server-room": ["itguy", "manager"],
+    "security-room": ["security", "manager"],
+    "archives-room": ["manager"],
+    "staff-room": ["manager", "cleaning"],
+    "conference-room": "all" 
+};
 
 
 
