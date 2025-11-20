@@ -16,7 +16,7 @@
         </header>
         <main class="w-full h-[90%] flex">
             <!-- sidebar -->
-            <aside class="sidebar w-[25%] h-full bg-red-500 p-4 flex flex-col">
+            <aside class="sidebar w-[25%] h-full bg-red-500 p-4 flex flex-col border-blue-300">
                 <h1
                     class="text-xl font-bold mb-6 text-gray-800 text-center border-2 border-gray-800 pb-2">Unasigned
                     Staff</h1>
@@ -31,76 +31,89 @@
                 </div>
 
             </aside>
-            <section class="floor-plan rooms-grid w-[75%] h-full  ">
-                <!-- salle -->
-                    
+            <section class="floor-plan rooms-grid w-[75%] h-full">
+                <!-- Conference -->
                 <div
                     class="zone bg-blue-500 bg-opacity-50 conference-room flex flex-col items-center justify-center text-center p-4"
                     id="conference-room">
-                    <h3 class="text-2xl font-semibold text-white mb-2">
-                        Conference room</h3>
+                    <h3
+                        class="text-2xl font-semibold text-white mb-2">Conference
+                        room</h3>
+
                     <button
-                        class="add-btn bg-white text-blue-500 hover:bg-blue-100 hover:text-blue-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold ">+</button>
+                        class="add-btn bg-white text-blue-500 hover:bg-blue-100 hover:text-blue-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold"
+                        data-zone="conference-room">+</button>
+
                     <div class="zone-content mt-4"></div>
                 </div>
 
+                <!-- Reception -->
                 <div
                     class="zone bg-orange-500 bg-opacity-50 reception-room flex flex-col items-center justify-center text-center p-4"
-                    id="reception">
-                    <h3
-                        class="text-2xl font-semibold text-white mb-2">Reception
-                        room </h3>
+                    id="reception-room">
+                    <h3 class="text-2xl font-semibold text-white mb-2">Reception
+                        room</h3>
+
                     <button
-                        class="add-btn bg-white text-orange-500 hover:bg-orange-100 hover:text-orange-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold ">
-                        +
-                    </button>
+                        class="add-btn bg-white text-orange-500 hover:bg-orange-100 hover:text-orange-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold"
+                        data-zone="reception-room">+</button>
+
                     <div class="zone-content mt-4"></div>
                 </div>
 
+                <!-- Server Room -->
                 <div
                     class="zone bg-pink-500 bg-opacity-50 server-room flex flex-col items-center justify-center text-center p-4"
                     id="server-room">
-                    <h3 class="text-2xl font-semibold text-white mb-2">
-                        Serveurs room</h3>
-                    <button
-                        class="add-btn bg-white text-orange-500 hover:bg-orange-100 hover:text-orange-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold ">+</button>
-                    <div class="zone-content mt-4"></div>
+                    <h3 class="text-2xl font-semibold text-white mb-2">Serveurs
+                        room</h3>
 
+                    <button
+                        class="add-btn bg-white text-orange-500 hover:bg-orange-100 hover:text-orange-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold"
+                        data-zone="server-room">+</button>
+
+                    <div class="zone-content mt-4"></div>
                 </div>
 
+                <!-- Security Room -->
                 <div
                     class="zone bg-purple-500 bg-opacity-50 security-room flex flex-col items-center justify-center text-center p-4"
                     id="security-room">
-                    <h3 class="text-2xl font-semibold text-white mb-2">
-                        Security room </h3>
+                    <h3 class="text-2xl font-semibold text-white mb-2">Security
+                        room</h3>
+
                     <button
-                        class="add-btn bg-white text-purple-500 hover:bg-purple-100 hover:text-purple-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold ">
-                        +
-                    </button>
+                        class="add-btn bg-white text-purple-500 hover:bg-purple-100 hover:text-purple-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold"
+                        data-zone="security-room">+</button>
+
                     <div class="zone-content mt-4"></div>
                 </div>
 
+                <!-- Staff Room -->
                 <div
                     class="zone bg-cyan-500 bg-opacity-50 staff-room flex flex-col items-center justify-center text-center p-4"
                     id="staff-room">
                     <h3 class="text-2xl font-semibold text-white mb-2">Staff
                         room</h3>
+
                     <button
-                        class="add-btn bg-white text-cyan-500 hover:bg-cyan-100 hover:text-cyan-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold ">
-                        +
-                    </button>
+                        class="add-btn bg-white text-cyan-500 hover:bg-cyan-100 hover:text-cyan-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold"
+                        data-zone="staff-room">+</button>
+
                     <div class="zone-content mt-4"></div>
                 </div>
 
+                <!-- Archives -->
                 <div
                     class="zone bg-yellow-500 bg-opacity-50 archives-room flex flex-col items-center justify-center text-center p-4"
                     id="archives-room">
-                    <h3 class="text-2xl font-semibold text-white mb-2">
-                        Archives room</h3>
+                    <h3 class="text-2xl font-semibold text-white mb-2">Archives
+                        room</h3>
+
                     <button
-                        class="add-btn bg-white text-yellow-500 hover:bg-yellow-100 hover:text-yellow-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold ">
-                        +
-                    </button>
+                        class="add-btn bg-white text-yellow-500 hover:bg-yellow-100 hover:text-yellow-700 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold"
+                        data-zone="archives-room">+</button>
+
                     <div class="zone-content mt-4"></div>
                 </div>
 
@@ -110,7 +123,6 @@
                 <div class="zone bg-gray-500 bg-opacity-50 emptx-room">
                     hohohoho
                 </div>
-
             </section>
 
         </main>
@@ -139,15 +151,15 @@
                 <div
                     class="bg-white p-8 w-11/12 md:w-3/4 max-w-3xl rounded shadow-lg relative max-h-[90vh] overflow-y-auto ">
                     <!-- close button -->
-                    <button id="closepopup"
+                    <button id="closepopup" type="button"
                         class="absolute top-4 right-4 text-gray-500  text-xl font-bold">X</button>
 
-                    <h2 class="text-lg font-bold mb-6 text-center">Add
-                        Worker</h2>
+                    <h2 class="text-lg font-bold mb-6 text-center text-blue-500">Add Worker</h2>
 
                     <!-- worker Name -->
-                    <div>Worker Info
-                        <label for="name"
+                    <div>
+                            <h2 class="text-lg font-semibold mb-6">Worker Info</h2>
+                        <label for="name" type="text"
                             class="text-gray-500 font-medium mb-1">Name
                             :</label>
                         <input id="name" type="text" placeholder="Worker Name"
@@ -223,12 +235,22 @@
                                     placeholder="Enter Role">
 
                                 <label>From</label>
-                                <input type="date"
+                                <input type="date" id="startDateExp"
                                     class="startDateExp border rounded p-2 w-full mb-2">
+                                <span id="startDateExp"
+                                    class="text-red-500 text-sm hidden"></span>
+                                <span id="urlError"
+                                    class="text-red-500 text-sm hidden">Error
+                                    message</span>
 
-                                <label>To</label>
-                                <input type="date"
+                                <label>To :</label>
+                                <input type="date" id="endDateExp"
                                     class="endDateExp border rounded p-2 w-full mb-2">
+                                <span id="endDateExp-error"
+                                    class="text-red-500 text-sm hidden"></span>
+                                <span id="urlError"
+                                    class="text-red-500 text-sm hidden">Error
+                                    message</span>
                             </div>
                         </div>
                     </div>
@@ -238,7 +260,7 @@
                     <!-- Phone & Email  -->
                     <div>
                         <!-- Email  -->
-                        <label for="name"
+                        <label for="email"
                             class="text-gray-500 font-medium mb-1">Email
                             :</label>
                         <input id="email" type="text" placeholder="Enter Email"
@@ -250,7 +272,7 @@
                             message</span>
                         <!-- Phone  -->
                         <div>
-                            <label for="name"
+                            <label for="phone"
                                 class="text-gray-500 font-medium mb-1">Phone
                                 :</label>
                             <input id="phone" type="text"
@@ -268,12 +290,29 @@
                         <button id="saveworker" type="submit"
                             class="w-full bg-blue-500 text-white py-2 rounded ">Save
                             Worker</button>
-                        <button id="cancelworker"
+                        <button id="cancelworker" type="button"
                             class="w-full bg-gray-500 text-white py-2 rounded ">Cancel</button>
                     </div>
+                    <!-- assign popup  -->
+                    <div class="assignblock"></div>
                 </div>
             </div>
         </form>
+        <!-- Assign Worker Popup -->
+        <div id="assignPopup"
+            class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg w-96 shadow-lg">
+                <h2 class="text-xl font-bold mb-4">Assign Worker</h2>
+                <p id="assignRoomName" class="text-lg font-semibold mb-4"></p>
+                <div id="assignWorkersList"
+                    class="flex flex-col gap-2 max-h-60 overflow-y-auto"></div>
+                <div class="flex justify-end mt-4">
+                    <button id="assignCancel"
+                        class="px-4 py-2 bg-gray-400 text-white rounded">Cancel</button>
+                </div>
+            </div>
+        </div>
+
         <script src="./assests/js/app.js"></script>
     </body>
 
