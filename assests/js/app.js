@@ -82,7 +82,16 @@ const validationRules = {
     "urlimage": {
         regex: /^(https?:\/\/.*\.(jpg|jpeg|png|gif|webp))$/i,
         message: "Invalid image URL (jpg, png, gif, webp)."
-    }
+    },
+    "email": {
+        regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        message: "Invalid email format."
+    },
+    "phone": {
+        regex: /^[0-9]{8,15}$/,
+        message: "Invalid phone number (8-15)"
+    },
+    // ""
 };
 
 function toggleError(field, show, message = "") {
@@ -124,6 +133,15 @@ function validateForm() {
     return isValid;
 }
 
+function validateDatesexp() {
+    const startDate = document.querySelector(".startDateExp").value;
+    const endDate = document.querySelector(".endDateExp").value;
+    if (new Date(startDate) > new Date(endDate)) {
+        alert("End date must be after start date");
+        return false;
+    }
+    return true;
+}
 //////////////
 // local storage
 let workers;
@@ -133,6 +151,7 @@ if (strdata) {
 } else {
     workers = [];
 }
+let unassignedWorkers = workers.filter(w => !w.zoneId);
 
 function saveWorkers() {
     localStorage.setItem("workers", JSON.stringify(workers));
@@ -145,6 +164,7 @@ submit.addEventListener("submit", addworker);
 function addworker(e) {
     e.preventDefault();
     if (!validateForm()) return;
+    if (!validateDatesexp()) return;
 
     const worker = {
         id: Date.now(),
@@ -154,13 +174,10 @@ function addworker(e) {
         phone: phone.value.trim(),
         image: imagepreview.src,
         experiences: getexperiences(),
-        zoneId: null 
+        zoneId: null
     };
-
-
-
-
     workers.push(worker);
+    unassignedWorkers.push(worker);
     saveWorkers();
     renderWorker(worker);
     addworkerpopup.classList.add("hidden");
@@ -314,26 +331,139 @@ function addExperienceBlock() {
 //function get all experiences 
 
 function getexperiences() {
-    const experienceblocks = document.querySelectorAll("#ExperienceList .experience-blocks");
-    const experiences = [];
-    experienceblocks.forEach(block => {
-        const company = block.querySelector(".companyNameExp").value.trim();
-        const role = block.querySelector(".roleExp").value.trim();
-        const from = block.querySelector(".startDateExp").value.trim();
-        const to = block.querySelector(".endDateExp").value.trim();
-        experiences.push({ company, role, from, to });
+    const blocks = document.querySelectorAll("#ExperienceList .experience-blocks");
+    const exp = [];
+
+    blocks.forEach(b => {
+        exp.push({
+            company: b.querySelector(".companyNameExp").value.trim(),
+            role: b.querySelector(".roleExp").value.trim(),
+            from: b.querySelector(".startDateExp").value.trim(),
+            to: b.querySelector(".endDateExp").value.trim()
+        });
     });
-    return experiences;
+
+    return exp;
 }
 /////////zone functiions 
+//rule of each room
 const zoneRules = {
-    "reception": ["receptionest", "manager"],
+    "reception-room": ["receptionest", "manager"],
     "server-room": ["itguy", "manager"],
     "security-room": ["security", "manager"],
     "archives-room": ["manager"],
     "staff-room": ["manager", "cleaning"],
-    "conference-room": "all" 
+    "conference-room": "all"
 };
+//workers zone
+let zoneWorkers = {
+    "reception-room": [],
+    "server-room": [],
+    "security-room": [],
+    "archives-room": [],
+    "staff-room": [],
+    "conference-room": []
+
+};
+// let unassignedWorkers =[];
+workers.forEach(w => {
+    if (w.zoneId) zoneWorkers[w.zoneId].push(w);
+});
+function assignWorkerToZone(worker, zone) {
+    const allowedRoles = zoneRules[zone];
+
+    if (allowedRoles !== "all" && !allowedRoles.includes(worker.role)) {
+        alert(`${worker.name} cant be assigned to ${zone}`);
+        return false;
+    }
+    worker.zoneId = zone;
+    zoneWorkers[zone].push(worker);
+
+    unassignedWorkers = unassignedWorkers.filter(w => w.id !== worker.id);
+    return true;
+}
+
+const assignPopup = document.getElementById("assignPopup");
+const assignRoomName = document.getElementById("assignRoomName");
+const assignWorkersList = document.getElementById("assignWorkersList");
+const assignCancel = document.getElementById("assignCancel");
 
 
 
+
+let currentZone = null;
+
+// Open popup 
+document.querySelectorAll(".add-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        currentZone = btn.dataset.zone;
+
+        assignWorkersList.innerHTML = "";
+        if (unassignedWorkers.length === 0) {
+            assignWorkersList.innerHTML = ` <div class="bg-white p-8 w-11/12 md:w-3/4 max-w-3xl rounded shadow-lg relative max-h-[90vh] overflow-y-auto ">
+                                            <p class='text-gray-500'>No unassigned workers</p>            
+                                            </div>`
+        } else {
+            unassignedWorkers.forEach(worker => {
+                const workerBtn = document.createElement("button");
+                // workerBtn.className = "w-full text-left px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600";
+                // workerBtn.textContent = ` smiya: ${worker.name} lkhdma: (${worker.role})`;
+                workerBtn.innerHTML = `<div class ="bg-white p-8 w-11/12 md:w-3/4 max-w-3xl rounded shadow-lg relative max-h-[90vh] overflow-y-auto ">
+                <p> Name: ${worker.name} Role: (${worker.role})</p>
+                </div>
+`;
+
+                workerBtn.addEventListener("click", () => {
+                    if (assignWorkerToZone(worker, currentZone)) {
+                        assignPopup.classList.add("hidden");
+                        saveWorkers();
+                        renderWorkersInRoom(currentZone);
+                    }
+                });
+                assignWorkersList.appendChild(workerBtn);
+            });
+        }
+
+        assignPopup.classList.remove("hidden");
+    });
+});
+
+// Close popup
+assignCancel.addEventListener("click", () => assignPopup.classList.add("hidden"));
+assignPopup.addEventListener("click", e => {
+    if (e.target === assignPopup) assignPopup.classList.add("hidden");
+});
+
+
+for (let zone in zoneWorkers) renderWorkersInRoom(zone);
+
+
+function renderWorkersInRoom(zone) {
+    const zoneDiv = document.getElementById(zone).querySelector(".zone-content");
+    zoneDiv.innerHTML = "";
+
+    zoneWorkers[zone].forEach(worker => {
+
+        const div = document.createElement("div");
+        div.innerHTML = `
+            <div class="bg-white p-8 rounded shadow flex justify-between items-center">
+                <p>${worker.name} (${worker.role})</p>
+                <button class="deletfromzon bg-red-500 text-white px-3 py-1 rounded">x</button>
+            </div>
+        `;
+
+        const deleteBtn = div.querySelector(".deletfromzon");
+        deleteBtn.addEventListener("click", () => {
+
+            zoneWorkers[zone] = zoneWorkers[zone].filter(w => w.id !== worker.id);
+            worker.zoneId = null;
+            unassignedWorkers.push(worker);
+
+            saveWorkers();
+
+            renderWorkersInRoom(zone);
+        });
+
+        zoneDiv.appendChild(div);
+    });
+}
