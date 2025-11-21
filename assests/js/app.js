@@ -189,24 +189,7 @@ function addworker(e) {
 
 }
 
-const zoneRules = {
-    "reception-room": ["receptionest", "manager"],
-    "server-room": ["itguy", "manager"],
-    "security-room": ["security", "manager"],
-    "archives-room": ["manager"],
-    "staff-room": ["manager", "cleaning"],
-    "conference-room": "all"
-};
-//workers zone
-let zoneWorkers = {
-    "reception-room": [],
-    "server-room": [],
-    "security-room": [],
-    "archives-room": [],
-    "staff-room": [],
-    "conference-room": []
 
-};
 
 
 
@@ -217,8 +200,9 @@ function renderWorker() {
     const zones=["reception-room","server-room","security-room","archives-room","staff-room","conference-room"];
     const filterZoneNull = workers.filter(worker => worker.zoneId === null);
     zones.forEach(zone =>{ 
-        const divzone = document.querySelector("."+zone);
+        const divzone = document.getElementById(zone);
         const filterworkers = workers.filter(worker => worker.zoneId === zone);
+        divzone.innerHTML = ""
         filterworkers.forEach(w =>{
             divzone.innerHTML +=`
             <div class="flex items-center gap-4">
@@ -228,7 +212,7 @@ function renderWorker() {
                 <p class="text-l text-center font-bold">  ${w.role}</p>
             </div>
         </div>
-        <button class="text-red-700 font-bold text-xl">X</button>
+        <button class="text-red-700 font-bold text-xl" onclick="restoremember(${w.id})">X</button>
             `;
 
         });
@@ -253,6 +237,12 @@ function renderWorker() {
 
 }
 
+function restoremember(id){
+    let workerrestore = workers.find(worker=>Number(worker.id) === Number(id))
+    Object.assign(workerrestore,{zoneId:null})
+    saveWorkers()
+    renderWorker()
+}
 
 function deleteWorker(id) {
     workers = workers.filter(wor => wor.id !== id);
@@ -366,6 +356,58 @@ function getexperiences() {
 
     return exp;
 }
+/////////zone functiions 
+const zoneRules = {
+    "reception-room": ["receptionest", "manager"],
+    "server-room": ["itguy", "manager"],
+    "security-room": ["security", "manager"],
+    "archives-room": ["manager"],
+    "staff-room": ["manager", "cleaning"],
+    "conference-room": ["manager","cleaning","security","itguy","receptionest"]
+};
+
+
+document.querySelectorAll(".add-btn").forEach(btn => {
+    const assignWorkersList = document.getElementById("assignWorkersList");
+    btn.addEventListener("click", () => {
+        let memberzone = [];
+        currentZone = btn.dataset.zone;
+        zoneRules[currentZone].forEach(cur=>{
+            memberzone.push(...workers.filter(worker=>worker.role === cur && worker.zoneId === null));
+        })
+        console.log(assignWorkersList)
+        assignWorkersList.innerHTML = "";
+        if (memberzone.length === 0) {
+            assignWorkersList.innerHTML = ` <div class="bg-white p-8 w-11/12 md:w-3/4 max-w-3xl rounded shadow-lg relative max-h-[90vh] overflow-y-auto ">
+                                            <p class='text-gray-500'>No unassigned workers</p>            
+                                            </div>`
+        } else {
+            memberzone.forEach(worker => {
+                const workerBtn = document.createElement("button");
+                workerBtn.innerHTML = `<div data-id=${worker.id} class ="bg-white p-8 w-11/12 md:w-3/4 max-w-3xl rounded shadow-lg relative max-h-[90vh] overflow-y-auto ">
+                <p> Name: ${worker.name} Role: (${worker.role})</p>
+                </div>`
+            workerBtn.addEventListener("click", () => {
+                    const memberselected = workers.find(worker=>Number(worker.id) === Number(workerBtn.firstElementChild.dataset.id))
+                    Object.assign(memberselected,{zoneId:currentZone})
+                    saveWorkers()
+                    renderWorker()
+                            assignPopup.classList.add("hidden");
+
+                });
+                assignWorkersList.appendChild(workerBtn);
+            });
+        }
+
+        assignPopup.classList.remove("hidden");
+        
+    })})
+// Close popup
+assignCancel.addEventListener("click", () => assignPopup.classList.add("hidden"));
+assignPopup.addEventListener("click", e => {
+    if (e.target === assignPopup) assignPopup.classList.add("hidden");
+});
+
 
 
 renderWorker()
