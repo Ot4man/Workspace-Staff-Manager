@@ -205,7 +205,7 @@ function renderWorker() {
         divzone.innerHTML = ""
         filterworkers.forEach(w => {
             divzone.innerHTML += `
-            <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow border border-gray-200">
             <img src="${w.image}" class="w-20 h-20 rounded-full object-cover border border-gray-300">
             <div>
                 <p class="text-xl text-center font-bold"> ${w.name}</p>
@@ -222,7 +222,7 @@ function renderWorker() {
     unassignedList.innerHTML = "";
     filterZoneNull.forEach(membernull => {
         unassignedList.innerHTML += `
-            <div class="flex items-center gap-4 unassigneddiv cursor-pointer flex justify-between items-center bg-green-500 border border-gray-200 p-3 rounded-lg" data-id=${membernull.id} >
+            <div class="flex items-center gap-4 unassigneddiv cursor-pointer flex justify-between items-center bg-blue-300 border border-gray-200 p-3 rounded-lg" data-id=${membernull.id} >
                 <img src="${membernull.image}" class="w-20 h-20 rounded-full object-cover border border-gray-300" onclick="showProfile(this)">
                 <div>
                     <p class="text-xl text-center font-bold"> ${membernull.name}</p>
@@ -385,7 +385,13 @@ document.querySelectorAll(".add-btn").forEach(btn => {
             memberzone.forEach(worker => {
                 const workerBtn = document.createElement("button");
                 workerBtn.innerHTML = `<div data-id=${worker.id} class ="bg-white p-8 w-11/12 md:w-3/4 max-w-3xl rounded shadow-lg relative max-h-[90vh] overflow-y-auto ">
-                <p> Name: ${worker.name} Role: (${worker.role})</p>
+                <div>
+                        <img src="${worker.image}" class="w-16 h-16 rounded-full object-cover border mb-2" />
+                </div>
+                    <div>
+                        <p class ="text-gray-800 font-semibold text-lg"> Name: ${worker.name}</p>
+                        <p class ="text-gray-800 font-semibold text-lg"> Role: ${worker.role}</p>
+                    </div>
                 </div>`
                 workerBtn.addEventListener("click", () => {
                     const memberselected = workers.find(worker => Number(worker.id) === Number(workerBtn.firstElementChild.dataset.id))
@@ -433,3 +439,15 @@ if (unassignAllBtn) {
         alert("Successfully Unassigned ");
     });
 }
+
+
+///asign all 
+function assignall(){
+    unassignedWorkers.forEach(w=>{
+       if(worker.zoneId){
+        zoneWorkers() 
+    }})
+
+}
+
+

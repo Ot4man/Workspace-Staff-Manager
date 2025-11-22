@@ -16,26 +16,32 @@
         </header>
         <main class="w-full h-[90%] flex">
             <!-- sidebar -->
-            <aside class="sidebar w-[25%] h-full bg-red-500 p-4 flex flex-col border-blue-300">
+            <aside
+                class="sidebar w-[25%] h-full bg-gray-300 p-4 flex flex-col border-blue-300">
                 <h1
-                    class="text-xl font-bold mb-6 text-gray-800 text-center border-2 border-gray-800 pb-2">Unasigned
+                    class="text-xl font-bold mb-6 text-gray-800 text-center  pb-2">Unassigned
                     Staff</h1>
                 <div id="unassignedList" class="flex-1">
                     <!-- list of Worker -->
                 </div>
                 <!-- add worker btn  -->
-                <div class="mt-4 ">
+                <div class="mt-4 flex gap-2">
                     <button id="addWorkerBtn"
                         class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-full">Add
                         Woker</button>
+                    <button id="unassignAllBtn"
+                        class="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-full">
+                        Unassign All Workers
+                    </button>
+                
                 </div>
-
+               
             </aside>
             <section class="floor-plan rooms-grid w-[75%] h-full">
                 <!-- Conference -->
                 <div
-                    class="zone bg-blue-500 bg-opacity-50 conference-room flex flex-col items-center justify-center text-center p-4"
-                    id="conference-room">
+                    class="zone bg-blue-500 bg-opacity-50 conference-room flex flex-col items-center justify-center text-center p-4">
+                    <div id="conference-room"></div>
                     <h3
                         class="text-2xl font-semibold text-white mb-2">Conference
                         room</h3>
@@ -49,8 +55,8 @@
 
                 <!-- Reception -->
                 <div
-                    class="zone bg-orange-500 bg-opacity-50 reception-room flex flex-col items-center justify-center text-center p-4"
-                    id="reception-room">
+                    class="zone bg-orange-500 bg-opacity-50 reception-room flex flex-col items-center justify-center text-center p-4">
+                    <div id="reception-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Reception
                         room</h3>
 
@@ -63,8 +69,8 @@
 
                 <!-- Server Room -->
                 <div
-                    class="zone bg-pink-500 bg-opacity-50 server-room flex flex-col items-center justify-center text-center p-4"
-                    id="server-room">
+                    class="zone bg-pink-500 bg-opacity-50 server-room flex flex-col items-center justify-center text-center p-4">
+                    <div id="server-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Serveurs
                         room</h3>
 
@@ -77,8 +83,8 @@
 
                 <!-- Security Room -->
                 <div
-                    class="zone bg-purple-500 bg-opacity-50 security-room flex flex-col items-center justify-center text-center p-4"
-                    id="security-room">
+                    class="zone bg-purple-500 bg-opacity-50 security-room flex flex-col items-center justify-center text-center p-4">
+                    <div id="security-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Security
                         room</h3>
 
@@ -91,8 +97,8 @@
 
                 <!-- Staff Room -->
                 <div
-                    class="zone bg-cyan-500 bg-opacity-50 staff-room flex flex-col items-center justify-center text-center p-4"
-                    id="staff-room">
+                    class="zone bg-cyan-500 bg-opacity-50 staff-room flex flex-col items-center justify-center text-center p-4">
+                    <div id="staff-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Staff
                         room</h3>
 
@@ -105,8 +111,8 @@
 
                 <!-- Archives -->
                 <div
-                    class="zone bg-yellow-500 bg-opacity-50 archives-room flex flex-col items-center justify-center text-center p-4"
-                    id="archives-room">
+                    class="zone bg-yellow-500 bg-opacity-50 archives-room flex flex-col items-center justify-center text-center p-4">
+                    <div id="archives-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Archives
                         room</h3>
 
@@ -154,11 +160,13 @@
                     <button id="closepopup" type="button"
                         class="absolute top-4 right-4 text-gray-500  text-xl font-bold">X</button>
 
-                    <h2 class="text-lg font-bold mb-6 text-center text-blue-500">Add Worker</h2>
+                    <h2
+                        class="text-lg font-bold mb-6 text-center text-blue-500">Add
+                        Worker</h2>
 
                     <!-- worker Name -->
                     <div>
-                            <h2 class="text-lg font-semibold mb-6">Worker Info</h2>
+                        <h2 class="text-lg font-semibold mb-6">Worker Info</h2>
                         <label for="name" type="text"
                             class="text-gray-500 font-medium mb-1">Name
                             :</label>
