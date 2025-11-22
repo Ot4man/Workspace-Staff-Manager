@@ -182,15 +182,18 @@ function addworker(e) {
     renderWorker(worker);
     addworkerpopup.classList.add("hidden");
 
-    // Clear form after submit
+    // Clear form 
     submit.reset();
     imagepreview.classList.add("hidden");
     txtpreview.classList.remove("hidden");
 
+    Swal.fire({
+        icon: 'success',
+        title: 'Worker Added',
+        text: `${worker.name} has been addedd`,
+        confirmButtonText: 'OK'
+    });
 }
-
-
-
 
 
 //////////////
@@ -242,14 +245,41 @@ function restoremember(id) {
     Object.assign(workerrestore, { zoneId: null })
     saveWorkers()
     renderWorker()
+    //sweet alert unassigned
+    Swal.fire({
+        icon: 'info',
+        title: 'Worker unassigned',
+        text: `${workerrestore.name} is unassigned.`,
+        confirmButtonText: 'OK'
+    });
 }
 
 function deleteWorker(id) {
-    workers = workers.filter(wor => wor.id !== id);
-    saveWorkers();
-    renderWorker()
+    Swal.fire({
+        title: 'Are you sure you want delet the worker?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
 
+            workers = workers.filter(wor => wor.id !== id);
+            saveWorkers();
+            renderWorker();
+
+            Swal.fire(
+                'Deleted!',
+                'Worker has been deleted.',
+                'success'
+            );
+        }
+    });
 }
+
 
 //////////////
 // Load datta
@@ -399,7 +429,13 @@ document.querySelectorAll(".add-btn").forEach(btn => {
                     saveWorkers()
                     renderWorker()
                     assignPopup.classList.add("hidden");
-
+                    //sweet alert 
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Worker Assigned',
+                        text: `${worker.name} has been assigned `,
+                        confirmButtonText: 'OK'
+                    });
                 });
                 assignWorkersList.appendChild(workerBtn);
             });
@@ -424,30 +460,31 @@ renderWorker()
 
 const unassignAllBtn = document.getElementById("unassignAllBtn");
 
-if (unassignAllBtn) {
-    unassignAllBtn.addEventListener("click", () => {
+unassignAllBtn.addEventListener("click", () => {
 
-        if (!confirm("Are you sure ? All workers will be unassigned")) 
-            return;
-        workers.forEach(worker => {
-            worker.zoneId = null;
-        });
+    Swal.fire({
+        title: 'Unassigne All',
+        text: "You can't return back!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        backdrop: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            workers.forEach(worker => {
+                worker.zoneId = null;
+            });
+            saveWorkers();
+            renderWorker();
 
-        saveWorkers();
-        renderWorker();
-
-        alert("Successfully Unassigned ");
+            Swal.fire(
+                'Unassigned Success✅',
+            );
+        }
     });
-}
 
-
-///asign all 
-function assignall(){
-    unassignedWorkers.forEach(w=>{
-       if(worker.zoneId){
-        zoneWorkers() 
-    }})
-
-}
-
+});
 
