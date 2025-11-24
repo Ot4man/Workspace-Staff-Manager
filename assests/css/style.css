@@ -12,8 +12,16 @@
 }
 .rooms-grid{
     display: grid;
-    grid-template-columns: 1/5fr 1fr 1fr 1fr 1fr ;
-    grid-template-rows: 275px 275px 275px;
+    height: 100vh;
+
+    grid-template-columns:
+    minmax(100px, 1.2fr)
+    minmax(100px, 1.2fr)
+    minmax(100px, 1fr)
+    minmax(100px, 1.4fr)
+    minmax(100px, 1.4fr);
+
+    grid-template-rows: repeat(3, minmax(100px, 1fr));
     grid-template-areas:    "conference conference empty server security""reception reception empty emptx emptx"
         "reception reception empty staff archives"; 
 
