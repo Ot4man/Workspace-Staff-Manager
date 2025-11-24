@@ -188,11 +188,11 @@ function addworker(e) {
     txtpreview.classList.remove("hidden");
 
     Swal.fire({
-        icon: 'success',
-        title: 'Worker Added',
-        text: `${worker.name} has been addedd`,
-        confirmButtonText: 'OK'
-    });
+    icon: 'success',
+    title: 'Worker Added',
+    text: `${worker.name} has been addedd`,
+    confirmButtonText: 'OK'
+});
 }
 
 
@@ -208,14 +208,14 @@ function renderWorker() {
         divzone.innerHTML = ""
         filterworkers.forEach(w => {
             divzone.innerHTML += `
-        <div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow border border-gray-200">
-            <img src="${w.image}" class="w-20 h-20 rounded-full object-cover border border-gray-300">
+        <div class="flex items-center gap-2 bg-white p-1 rounded-lg shadow border border-gray-200">
+            <img src="${w.image}" class="w-12 h-12 rounded-full object-cover border border-gray-300">
             <div>
-                <p class="text-xl text-center font-bold"> ${w.name}</p>
-                <p class="text-l text-center font-bold">  ${w.role}</p>
+                <p class="text-sm text-center font-bold"> ${w.name}</p>
+                <p class="text-xs text-center font-bold">  ${w.role}</p>
             </div>
         </div>
-        <button class="text-red-700 font-bold text-xl" onclick="restoremember(${w.id})">X</button>
+        <button class="text-red-700 font-bold text-lg" onclick="restoremember(${w.id})">X</button>
             `;
 
         });
@@ -237,7 +237,7 @@ function renderWorker() {
     })
 
 
-
+updateRoomBackgrounds();
 }
 
 function restoremember(id) {
@@ -431,10 +431,10 @@ document.querySelectorAll(".add-btn").forEach(btn => {
                     assignPopup.classList.add("hidden");
                     //sweet alert 
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Worker Assigned',
-                        text: `${worker.name} has been assigned `,
-                        confirmButtonText: 'OK'
+                    icon: 'success',
+                    title: 'Worker Assigned',
+                    text: `${worker.name} has been assigned `,
+                    confirmButtonText: 'OK'
                     });
                 });
                 assignWorkersList.appendChild(workerBtn);
@@ -461,7 +461,7 @@ renderWorker()
 const unassignAllBtn = document.getElementById("unassignAllBtn");
 
 unassignAllBtn.addEventListener("click", () => {
-
+    
     Swal.fire({
         title: 'Unassigne All',
         text: "You can't return back!",
@@ -471,7 +471,7 @@ unassignAllBtn.addEventListener("click", () => {
         cancelButtonColor: '#3085d6',
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
-        backdrop: true
+        backdrop: true 
     }).then((result) => {
         if (result.isConfirmed) {
             workers.forEach(worker => {
@@ -485,6 +485,26 @@ unassignAllBtn.addEventListener("click", () => {
             );
         }
     });
+        
+    });
+    
 
-});
+function updateRoomBackgrounds() {
+    const zones = ["reception-room", "server-room", "security-room", "archives-room", "staff-room", "conference-room"];
+
+    zones.forEach(zone => {
+        const divzone = document.getElementById(zone);
+        const workersInZone = workers.filter(worker => worker.zoneId === zone);
+        if (zone === "staff-room" || zone === "conference-room") {
+            divzone.parentElement.style.backgroundColor = "";
+            return;
+        }
+        if (workersInZone.length === 0) {
+            divzone.parentElement.style.backgroundColor = "rgba(219, 120, 120, 0.5)";
+        } else {
+            divzone.parentElement.style.backgroundColor = "";
+        }
+    });
+}
+
 
