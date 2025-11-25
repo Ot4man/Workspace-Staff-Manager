@@ -59,3 +59,73 @@ padding: 13px;
 .staff-room {
     padding: 13px;
 }
+
+/*Responsive
+///////////////////////
+/*Tablet*/
+
+@media (max-width: 1024px) {
+    .floor-plan {
+        background-image: none;
+    }
+
+    .rooms-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: none !important;
+        gap: 1rem;
+        height: auto;
+        padding: 1rem;
+        overflow-y: auto;
+    }
+
+    .conference-room,
+    .reception-room,
+    .server-room,
+    .security-room,
+    .staff-room,
+    .archives-room,
+    .empty-room,
+    .emptx-room {
+        grid-area: auto !important;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        background-color: #f3f4f6;
+        min-height: 200px;
+        padding: 1rem;
+    }
+}
+
+/*Phone responsive*/
+@media (max-width: 768px) {
+    main {
+        flex-direction: column !important;
+    }
+
+    .sidebar {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 250px;
+        order: 1;
+    }
+
+    .floor-plan {
+        width: 100% !important;
+        height: auto !important;
+        order: 2;
+    }
+
+    .rooms-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-areas: none !important;
+        gap: 1rem;
+    }
+}
+
+.swal2-shown.swal2-height-auto {
+    height: 100% !important;
+}
+
+body.swal2-shown {
+    transform: none !important;   
+}
