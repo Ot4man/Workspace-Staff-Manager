@@ -21,16 +21,16 @@
                 <h1
                     class="text-xl font-bold mb-6 text-gray-800 text-center  pb-2">Unassigned
                     Staff</h1>
-                <div id="unassignedList" class="flex-1">
+                <div id="unassignedList" class="flex-1 overflow-y-auto">
                     <!-- list of Worker -->
                 </div>
                 <!-- add worker btn  -->
                 <div class="mt-4 flex gap-2">
                     <button id="addWorkerBtn"
-                        class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-full">Add
+                        class="w-full bg-green-500 text-white font-bold py-1 px-3 rounded-full">Add
                         Woker</button>
                     <button id="unassignAllBtn"
-                        class="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-full">
+                        class="w-full bg-yellow-500 text-white font-bold py-1 px-3 rounded-full">
                         Unassign All Workers
                     </button>
                 
@@ -40,7 +40,7 @@
             <section class="floor-plan rooms-grid w-[75%] h-full">
                 <!-- Conference -->
                 <div
-                    class="zone bg-blue-500 bg-opacity-50 conference-room flex flex-col items-center justify-center text-center p-4">
+                    class=" zone relative zone  bg-opacity-50 conference-room flex flex-col items-center justify-center text-center p-4">
                     <div id="conference-room"></div>
                     <h3
                         class="text-2xl font-semibold text-white mb-2">Conference
@@ -55,7 +55,7 @@
 
                 <!-- Reception -->
                 <div
-                    class="zone bg-orange-500 bg-opacity-50 reception-room flex flex-col items-center justify-center text-center p-4">
+                    class="zone  bg-opacity-50 reception-room flex flex-col items-center justify-center text-center p-4">
                     <div id="reception-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Reception
                         room</h3>
@@ -69,7 +69,7 @@
 
                 <!-- Server Room -->
                 <div
-                    class="zone bg-pink-500 bg-opacity-50 server-room flex flex-col items-center justify-center text-center p-4">
+                    class="zone  bg-opacity-50 server-room flex flex-col items-center justify-center text-center p-4">
                     <div id="server-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Serveurs
                         room</h3>
@@ -83,7 +83,7 @@
 
                 <!-- Security Room -->
                 <div
-                    class="zone bg-purple-500 bg-opacity-50 security-room flex flex-col items-center justify-center text-center p-4">
+                    class="zone  bg-opacity-50 security-room flex flex-col items-center justify-center text-center p-4">
                     <div id="security-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Security
                         room</h3>
@@ -97,7 +97,7 @@
 
                 <!-- Staff Room -->
                 <div
-                    class="zone bg-cyan-500 bg-opacity-50 staff-room flex flex-col items-center justify-center text-center p-4">
+                    class="zone  bg-opacity-50 staff-room flex flex-col items-center justify-center text-center p-4">
                     <div id="staff-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Staff
                         room</h3>
@@ -111,7 +111,7 @@
 
                 <!-- Archives -->
                 <div
-                    class="zone bg-yellow-500 bg-opacity-50 archives-room flex flex-col items-center justify-center text-center p-4">
+                    class="zone  bg-opacity-50 archives-room flex flex-col items-center justify-center text-center p-4">
                     <div id="archives-room"></div>
                     <h3 class="text-2xl font-semibold text-white mb-2">Archives
                         room</h3>
@@ -121,13 +121,6 @@
                         data-zone="archives-room">+</button>
 
                     <div class="zone-content mt-4"></div>
-                </div>
-
-                <div class="zone bg-gray-500 bg-opacity-50 empty-room">
-                    hhhh
-                </div>
-                <div class="zone bg-gray-500 bg-opacity-50 emptx-room">
-                    hohohoho
                 </div>
             </section>
 
@@ -193,7 +186,7 @@
                         <option value="other">Other</option>
                     </select>
                     <!-- photo URl -->
-                    <div class="bg-red-500 bg-opacity-30 rounded p-4">
+                    <div class=" rounded p-4">
                         <label for="urlimage"
                             class="text-gray-500 font-medium mb-1">Photo (URL)
                             :</label>
@@ -228,10 +221,10 @@
                         </button>
 
                         <!-- Experience List -->
-                        <div id="ExperienceList" class="p-6 bg-blue-700">
+                        <div id="ExperienceList" class="p-6 ">
                             <!--  Experience Block -->
                             <div
-                                class="experience-blocks p-4 bg-blue-200 rounded mb-4">
+                                class="experience-blocks p-4 bg-blue-300 rounded mb-4">
                                 <label>Company</label>
                                 <input type="text"
                                     class="companyNameExp border rounded p-2 w-full mb-2"
